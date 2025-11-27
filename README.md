@@ -17,17 +17,29 @@ DBProject/
 
 ## How to Run
 
-Navigate to the project directory and run:
+### Option 1: Using the build script (Easiest)
 
 ```bash
-mysql -u your_username -p < build.sql
+cd /Users/vighaneshs/DBProject
+./build.sh
 ```
 
-Or inside MySQL:
 
-```sql
-SOURCE build.sql;
+### Option 2: From command line manually
+
+```bash
+cd /Users/vighaneshs/DBProject
+mysql -u your_username -p -e "
+DROP DATABASE IF EXISTS jungle_library_db;
+source schema/tables/00_database.sql;
+source schema/tables/01_person.sql;
+source schema/views/view_top_gold_member.sql;
+source data/sample_data.sql;
+SELECT 'Database build complete!' AS status;
+"
 ```
+
+**Important:** You must run from the project directory for relative paths to work.
 
 This will:
 1. Drop the existing database (if any)

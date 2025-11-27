@@ -1,3 +1,1 @@
-USE jungle_library_db;
-
---ADD INSERT STATEMENTS HERE
+USE jungle_library_db; --ADD INSERT STATEMENTS HERE
