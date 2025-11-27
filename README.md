@@ -17,13 +17,23 @@ DBProject/
 
 ## How to Run
 
-### Option 1: Using the build script (Easiest)
+### Option 1: Using the Python build script (Recommended)
 
 ```bash
 cd /Users/vighaneshs/DBProject
-./build.sh
+python build.py
 ```
 
+**Setup:**
+1. Create a `.env` file with your database credentials:
+   ```
+   DB_USER=root
+   DB_PASSWORD=your_password
+   ```
+2. Install required packages (already done if you have a virtual environment):
+   ```bash
+   pip install -r requirements.txt
+   ```
 
 ### Option 2: From command line manually
 
@@ -83,3 +93,5 @@ Or copy-paste specific queries into your MySQL client.
 ## Requirements
 
 - MySQL 8.0 or higher
+- Python 3.7+ (for build.py)
+- Required Python packages: `mysql-connector-python`, `python-dotenv`
