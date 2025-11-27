@@ -1,0 +1,10 @@
+USE jungle_library_db;
+
+CREATE TABLE PERSON_PHONE_NUMBER (
+    Person_ID CHAR(4),
+    Phone_Number VARCHAR(15),
+    PRIMARY KEY (Person_ID, Phone_Number),
+    FOREIGN KEY (Person_ID) REFERENCES PERSON(Person_ID)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);

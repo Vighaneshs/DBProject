@@ -64,6 +64,7 @@ def main():
         # Create tables
         print("Creating tables...")
         run_sql_file(cursor, 'schema/tables/01_person.sql')
+        run_sql_file(cursor, 'schema/tables/02_person_phone_number.sql')
         conn.commit()
         
         # Create views
