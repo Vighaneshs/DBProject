@@ -1,0 +1,10 @@
+USE jungle_library_db;
+
+CREATE TABLE MEMBER (
+    Member_ID CHAR(4) PRIMARY KEY,
+    Member_type ENUM('silver', 'gold') NOT NULL,
+    Card_ID VARCHAR(20) UNIQUE NOT NULL,
+    FOREIGN KEY (Member_ID) REFERENCES PERSON(Person_ID)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);

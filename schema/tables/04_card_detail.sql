@@ -1,0 +1,9 @@
+USE jungle_library_db;
+
+CREATE TABLE CARD_DETAIL (
+    Card_ID VARCHAR(20) PRIMARY KEY,
+    Card_Issue_Date DATE NOT NULL,
+    FOREIGN KEY (Card_ID) REFERENCES MEMBER(Card_ID)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
