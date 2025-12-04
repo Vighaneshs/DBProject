@@ -1,5 +1,7 @@
 USE jungle_library_db;
 
+DROP TABLE IF EXISTS CARD_PROMOTION;
+
 CREATE TABLE CARD_PROMOTION (
     Card_ID VARCHAR(20),
     Promotion_Code VARCHAR(20),

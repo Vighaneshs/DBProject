@@ -70,6 +70,15 @@ def main():
         run_sql_file(cursor, 'schema/tables/05_promotion.sql')
         run_sql_file(cursor, 'schema/tables/06_card_promotion.sql')
         run_sql_file(cursor, 'schema/tables/07_guest.sql')
+        run_sql_file(cursor, 'schema/tables/09_publisher.sql')
+        run_sql_file(cursor, 'schema/tables/08_book.sql')
+        run_sql_file(cursor, 'schema/tables/10_publisher_phone.sql')
+        run_sql_file(cursor, 'schema/tables/11_publisher_address.sql')
+        run_sql_file(cursor, 'schema/tables/12_comments.sql')
+        run_sql_file(cursor, 'schema/tables/13_author.sql')
+        run_sql_file(cursor, 'schema/tables/14_author_email.sql')
+        run_sql_file(cursor, 'schema/tables/15_writes.sql')
+
         conn.commit()
         
         # Create views

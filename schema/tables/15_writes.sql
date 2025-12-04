@@ -1,0 +1,15 @@
+USE jungle_library_db;
+
+DROP TABLE IF EXISTS WRITES;
+
+CREATE TABLE WRITES (
+    Author_ID varchar(4) NOT NULL,
+    Book_ID varchar(4) NOT NULL,
+    PRIMARY KEY (Author_ID, Book_ID),
+    FOREIGN KEY (Author_ID) REFERENCES AUTHOR(Author_ID)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    FOREIGN KEY (Book_ID) REFERENCES BOOK(Book_ID)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);

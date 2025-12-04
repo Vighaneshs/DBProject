@@ -1,0 +1,8 @@
+USE jungle_library_db;
+
+DROP TABLE IF EXISTS AUTHOR;
+
+CREATE TABLE AUTHOR (
+    Author_ID CHAR(4) PRIMARY KEY NOT NULL,
+    Author_Name VARCHAR(100)
+);

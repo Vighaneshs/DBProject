@@ -1,0 +1,12 @@
+USE jungle_library_db;
+
+DROP TABLE IF EXISTS PUBLISHER_PHONE;
+
+CREATE TABLE PUBLISHER_PHONE (
+    Publisher_ID CHAR(4) NOT NULL,
+    Phone_Number VARCHAR(15) NOT NULL,
+    PRIMARY KEY (Publisher_ID, Phone_Number),
+    FOREIGN KEY (Publisher_ID) REFERENCES PUBLISHER(Publisher_ID)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);

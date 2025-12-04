@@ -1,5 +1,7 @@
 USE jungle_library_db;
 
+DROP TABLE IF EXISTS PERSON;
+
 CREATE TABLE PERSON (
     Person_ID CHAR(4) PRIMARY KEY CHECK (Person_ID REGEXP '^P[0-9]{3}$'),
     Fname VARCHAR(50) NOT NULL,

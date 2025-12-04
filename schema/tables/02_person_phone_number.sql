@@ -1,5 +1,7 @@
 USE jungle_library_db;
 
+DROP TABLE IF EXISTS PERSON_PHONE_NUMBER;
+
 CREATE TABLE PERSON_PHONE_NUMBER (
     Person_ID CHAR(4),
     Phone_Number VARCHAR(15),

@@ -1,5 +1,7 @@
 USE jungle_library_db;
 
+DROP TABLE IF EXISTS MEMBER;
+
 CREATE TABLE MEMBER (
     Member_ID CHAR(4) PRIMARY KEY,
     Member_type ENUM('silver', 'gold') NOT NULL,
