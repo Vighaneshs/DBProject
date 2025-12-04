@@ -78,6 +78,18 @@ def main():
         run_sql_file(cursor, 'schema/tables/13_author.sql')
         run_sql_file(cursor, 'schema/tables/14_author_email.sql')
         run_sql_file(cursor, 'schema/tables/15_writes.sql')
+        run_sql_file(cursor, 'schema/tables/16_employee.sql')
+        run_sql_file(cursor, 'schema/tables/17_trainer.sql')
+        run_sql_file(cursor, 'schema/tables/18_cataloging_manager.sql')
+        run_sql_file(cursor, 'schema/tables/19_library_supervisor.sql')
+        run_sql_file(cursor, 'schema/tables/20_receptionist.sql')
+        run_sql_file(cursor, 'schema/tables/21_payment.sql')
+        run_sql_file(cursor, 'schema/tables/22_borrowing_record.sql')
+        run_sql_file(cursor, 'schema/tables/23_borrows.sql')
+        run_sql_file(cursor, 'schema/tables/24_cataloging_log.sql')
+        run_sql_file(cursor, 'schema/tables/25_maintains.sql')
+        run_sql_file(cursor, 'schema/tables/26_inquiry.sql')
+        run_sql_file(cursor, 'schema/tables/27_inquires.sql')
 
         conn.commit()
         

@@ -1,0 +1,15 @@
+USE jungle_library_db;
+
+DROP TABLE IF EXISTS MAINTAINS;
+
+CREATE TABLE MAINTAINS (
+    Receptionist_ID VARCHAR(10),
+    Record_ID INT,
+    PRIMARY KEY (Receptionist_ID, Record_ID),
+    FOREIGN KEY (Receptionist_ID) REFERENCES RECEPTIONIST(Employee_ID)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    FOREIGN KEY (Record_ID) REFERENCES BORROWING_RECORD(Record_ID)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
