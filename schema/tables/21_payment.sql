@@ -8,3 +8,5 @@ CREATE TABLE PAYMENT (
     Payment_Date DATE,
     Amount_Paid DECIMAL(10,2)
 );
+
+
