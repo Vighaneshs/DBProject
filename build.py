@@ -89,6 +89,7 @@ def main():
         run_sql_file(cursor, 'schema/tables/24_cataloging_log.sql')
         run_sql_file(cursor, 'schema/tables/25_maintains.sql')
         run_sql_file(cursor, 'schema/tables/26_inquiry.sql')
+        run_sql_file(cursor, 'schema/tables/27_entry.sql')
 
         conn.commit()
         

@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS WRITES;
 
 CREATE TABLE WRITES (
     Author_ID varchar(4) NOT NULL,
-    Book_ID varchar(4) NOT NULL,
+    Book_ID CHAR(10) NOT NULL,
     PRIMARY KEY (Author_ID, Book_ID),
     FOREIGN KEY (Author_ID) REFERENCES AUTHOR(Author_ID)
         ON DELETE CASCADE
