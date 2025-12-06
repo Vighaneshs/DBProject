@@ -4,6 +4,7 @@ USE jungle_library_db;
 -- SAMPLE DATA FOR JUNGLE LIBRARY DATABASE
 -- Respects all foreign keys, constraints, and enums
 -- ==============================================
+-- ==============================================
 
 -- ---------------------------------------------
 -- 1. PERSON (Base table - no dependencies)
@@ -65,18 +66,19 @@ INSERT INTO MEMBER (Member_ID, Member_type, Card_ID) VALUES
 
 -- ---------------------------------------------
 -- 4. CARD_DETAIL (Depends on MEMBER)
+-- Card_Issue_Date represents membership enrollment date
 -- ---------------------------------------------
 INSERT INTO CARD_DETAIL (Card_ID, Card_Issue_Date) VALUES
-('CARD-G-001', '2023-01-15'),
-('CARD-S-002', '2023-02-20'),
-('CARD-G-003', '2023-03-10'),
-('CARD-S-004', '2023-04-05'),
-('CARD-G-005', '2023-05-12'),
-('CARD-S-006', '2023-06-18'),
-('CARD-G-007', '2023-07-22'),
-('CARD-S-008', '2023-08-30'),
-('CARD-G-009', '2023-09-14'),
-('CARD-S-010', '2023-10-25');
+('CARD-G-001', '2023-11-15'),  -- P001 - Gold member (enrolled Nov 2023)
+('CARD-S-002', '2023-12-20'),  -- P002 - Silver member (enrolled Dec 2023)
+('CARD-G-003', '2023-03-10'),  -- P003 - Gold member
+('CARD-S-004', '2023-12-05'),  -- P004 - Silver member (enrolled Dec 2023)
+('CARD-G-005', '2023-05-12'),  -- P005 - Gold member
+('CARD-S-006', '2023-06-18'),  -- P006 - Silver member
+('CARD-G-007', '2023-07-22'),  -- P007 - Gold member
+('CARD-S-008', '2023-08-30'),  -- P008 - Silver member
+('CARD-G-009', '2023-09-14'),  -- P009 - Gold member
+('CARD-S-010', '2023-10-25');  -- P010 - Silver member
 
 -- ---------------------------------------------
 -- 5. PROMOTION (No dependencies)
@@ -176,8 +178,10 @@ INSERT INTO BOOK (Book_ID, Book_Title, Category, Synopsis, Publisher_ID) VALUES
 
 -- ---------------------------------------------
 -- 12. COMMENTS (Depends on PERSON and BOOK)
+-- For BestRatingPublisher view - ensuring some publishers have all books rated 4+
 -- ---------------------------------------------
 INSERT INTO COMMENTS (Person_ID, Book_ID, Comment_Time, Rating, Content) VALUES
+-- Comments on books from various publishers
 ('P001', 'BK00000001', '2024-01-15 10:30:00', 5, 'An absolute masterpiece! The storytelling is phenomenal.'),
 ('P002', 'BK00000002', '2024-01-20 14:45:00', 5, 'Eerily prophetic. A must-read for everyone.'),
 ('P003', 'BK00000003', '2024-02-05 09:15:00', 4, 'Delightful romance with witty dialogue. Enjoyed it immensely.'),
@@ -188,7 +192,40 @@ INSERT INTO COMMENTS (Person_ID, Book_ID, Comment_Time, Rating, Content) VALUES
 ('P008', 'BK00000008', '2024-03-15 10:00:00', 4, 'Great adventure story! Perfect introduction to Middle-earth.'),
 ('P009', 'BK00000013', '2024-03-20 12:30:00', 5, 'The bible of computer science. Invaluable resource.'),
 ('P010', 'BK00000015', '2024-03-25 14:15:00', 5, 'Mind-blowing perspective on human history.'),
-('P001', 'BK00000002', '2024-04-01 16:00:00', 5, 'Big Brother is watching! Chillingly relevant today.');
+('P001', 'BK00000002', '2024-04-01 16:00:00', 5, 'Big Brother is watching! Chillingly relevant today.'),
+-- Additional ratings for BestRatingPublisher view
+-- PUB6 (Scholastic) - BK00000005 (Harry Potter) - ensure all books have 4+ rating
+('P002', 'BK00000005', '2024-04-05 10:00:00', 5, 'Magical and captivating! A masterpiece for all ages.'),
+('P003', 'BK00000005', '2024-04-10 14:20:00', 5, 'The world-building is incredible. Rowling is brilliant!'),
+('P005', 'BK00000005', '2024-05-15 09:30:00', 4, 'Excellent start to an amazing series.'),
+-- PUB1 (Penguin Random House) books: BK00000002, BK00000003, BK00000009, BK00000014
+('P004', 'BK00000002', '2024-05-20 11:00:00', 5, 'Dystopian perfection. Still relevant decades later.'),
+('P006', 'BK00000003', '2024-06-01 13:45:00', 5, 'Witty, charming, and brilliantly written.'),
+('P007', 'BK00000009', '2024-06-15 10:15:00', 4, 'A powerful allegory. Orwell at his finest.'),
+('P008', 'BK00000014', '2024-07-01 14:30:00', 5, 'Mind-bending and accessible. Hawking makes physics fascinating.'),
+('P009', 'BK00000003', '2024-07-10 09:00:00', 4, 'Classic romance done right. Love the characters.'),
+('P010', 'BK00000009', '2024-08-05 16:00:00', 5, 'Every sentence has meaning. Absolutely brilliant.'),
+-- PUB5 (Hachette) books: BK00000007, BK00000008
+('P001', 'BK00000007', '2024-08-15 10:45:00', 5, 'The greatest fantasy epic ever written.'),
+('P002', 'BK00000008', '2024-08-20 13:00:00', 5, 'Charming and adventurous. Perfect prequel to LOTR.'),
+('P003', 'BK00000007', '2024-09-01 11:30:00', 4, 'Rich world, unforgettable characters.'),
+('P004', 'BK00000008', '2024-09-10 15:20:00', 4, 'A delightful journey. Bilbo is wonderful.'),
+-- PUB2 (HarperCollins) books: BK00000001, BK00000010, BK00000011, BK00000015
+('P005', 'BK00000001', '2024-09-20 10:00:00', 5, 'Powerful and moving. A true American classic.'),
+('P006', 'BK00000011', '2024-10-01 14:00:00', 4, 'Magical adventures in Narnia. Lewis creates wonder.'),
+('P007', 'BK00000015', '2024-10-15 09:30:00', 5, 'Revolutionary perspective on human history.'),
+('P008', 'BK00000010', '2024-10-20 13:15:00', 5, 'Disturbing and brilliant. Huxley was a visionary.'),
+('P009', 'BK00000011', '2024-11-01 10:30:00', 5, 'Timeless fantasy. Perfect for all ages.'),
+-- PUB7 (Pearson Education) - BK00000013
+('P010', 'BK00000013', '2024-11-05 15:00:00', 5, 'Comprehensive and essential for CS students.'),
+('P001', 'BK00000013', '2024-11-10 11:00:00', 4, 'Detailed and well-structured. Great reference.'),
+-- PUB3 (Simon & Schuster) books: BK00000004, BK00000012
+('P002', 'BK00000004', '2024-11-15 10:30:00', 4, 'Beautiful prose. Captures the Jazz Age perfectly.'),
+('P003', 'BK00000012', '2024-11-20 14:00:00', 5, 'Powerful warning about censorship. Brilliant.'),
+('P004', 'BK00000004', '2024-11-22 09:45:00', 5, 'Gatsby is unforgettable. Fitzgerald is a master.'),
+-- PUB4 (Macmillan) - BK00000006
+('P005', 'BK00000006', '2024-11-25 13:30:00', 4, 'Captures teenage angst perfectly. Holden is iconic.'),
+('P006', 'BK00000006', '2024-11-28 10:00:00', 4, 'Raw and honest. A coming-of-age classic.');
 
 -- ---------------------------------------------
 -- 13. AUTHOR (No dependencies)
@@ -292,6 +329,7 @@ INSERT INTO RECEPTIONIST (Employee_ID, Trainer_ID) VALUES
 -- 21. PAYMENT (No dependencies)
 -- ---------------------------------------------
 INSERT INTO PAYMENT (Payment_ID, Payment_Method, Payment_Date, Amount_Paid) VALUES
+-- Recent payments (past month - November 2025) for TopGoldMember view
 ('PAY001', 'Credit Card', '2024-11-01', 15.00),
 ('PAY002', 'Debit Card', '2024-11-03', 10.00),
 ('PAY003', 'Cash', '2024-11-05', 15.00),
@@ -301,12 +339,58 @@ INSERT INTO PAYMENT (Payment_ID, Payment_Method, Payment_Date, Amount_Paid) VALU
 ('PAY007', 'Cash', '2024-11-15', 25.00),
 ('PAY008', 'Debit Card', '2024-11-18', 10.00),
 ('PAY009', 'Credit Card', '2024-11-20', 15.00),
-('PAY010', 'Cash', '2024-11-22', 30.00);
+('PAY010', 'Cash', '2024-11-22', 30.00),
+-- Additional payments for past month (more than 5 books for gold member P001)
+('PAY011', 'Credit Card', '2024-11-08', 15.00),
+('PAY012', 'Credit Card', '2024-11-10', 15.00),
+('PAY013', 'Credit Card', '2024-11-14', 15.00),
+('PAY014', 'Credit Card', '2024-11-16', 15.00),
+-- Historical payments for PopularBooks view (past year)
+('PAY015', 'Cash', '2024-01-15', 15.00),
+('PAY016', 'Credit Card', '2024-02-10', 15.00),
+('PAY017', 'Debit Card', '2024-03-05', 15.00),
+('PAY018', 'Credit Card', '2024-04-12', 15.00),
+('PAY019', 'Cash', '2024-05-20', 15.00),
+('PAY020', 'Credit Card', '2024-06-08', 15.00),
+('PAY021', 'Debit Card', '2024-07-15', 15.00),
+('PAY022', 'Credit Card', '2024-08-22', 15.00),
+('PAY023', 'Cash', '2024-09-10', 15.00),
+('PAY024', 'Credit Card', '2024-10-18', 15.00),
+-- Monthly payments for silver member P002 (PotentialGoldMember - every month in 2024-2025)
+('PAY025', 'Credit Card', '2024-01-05', 10.00),
+('PAY026', 'Credit Card', '2024-02-05', 10.00),
+('PAY027', 'Credit Card', '2024-03-05', 10.00),
+('PAY028', 'Credit Card', '2024-04-05', 10.00),
+('PAY029', 'Credit Card', '2024-05-05', 10.00),
+('PAY030', 'Credit Card', '2024-06-05', 10.00),
+('PAY031', 'Credit Card', '2024-07-05', 10.00),
+('PAY032', 'Credit Card', '2024-08-05', 10.00),
+('PAY033', 'Credit Card', '2024-09-05', 10.00),
+('PAY034', 'Credit Card', '2024-10-05', 10.00),
+('PAY035', 'Credit Card', '2024-11-05', 10.00),
+('PAY036', 'Credit Card', '2024-12-05', 10.00),
+-- Monthly payments for silver member P004 (another PotentialGoldMember candidate)
+('PAY037', 'Debit Card', '2024-01-10', 10.00),
+('PAY038', 'Debit Card', '2024-02-10', 10.00),
+('PAY039', 'Debit Card', '2024-03-10', 10.00),
+('PAY040', 'Debit Card', '2024-04-10', 10.00),
+('PAY041', 'Debit Card', '2024-05-10', 10.00),
+('PAY042', 'Debit Card', '2024-06-10', 10.00),
+('PAY043', 'Debit Card', '2024-07-10', 10.00),
+('PAY044', 'Debit Card', '2024-08-10', 10.00),
+('PAY045', 'Debit Card', '2024-09-10', 10.00),
+('PAY046', 'Debit Card', '2024-10-10', 10.00),
+('PAY047', 'Debit Card', '2024-11-10', 10.00),
+('PAY048', 'Debit Card', '2024-12-03', 10.00),
+-- Additional historical payments
+('PAY049', 'Cash', '2024-01-20', 15.00),
+('PAY050', 'Credit Card', '2024-02-20', 15.00);
 
 -- ---------------------------------------------
 -- 22. BORROWING_RECORD (Depends on PAYMENT)
 -- ---------------------------------------------
 INSERT INTO BORROWING_RECORD (Payment_ID, Issue_Date, Return_Due_Date) VALUES
+-- Recent borrowing records (past month)
 ('PAY001', '2024-11-01', '2024-11-15'),
 ('PAY002', '2024-11-03', '2024-11-17'),
 ('PAY003', '2024-11-05', '2024-11-19'),
@@ -316,22 +400,113 @@ INSERT INTO BORROWING_RECORD (Payment_ID, Issue_Date, Return_Due_Date) VALUES
 ('PAY007', '2024-11-15', '2024-11-29'),
 ('PAY008', '2024-11-18', '2024-12-02'),
 ('PAY009', '2024-11-20', '2024-12-04'),
-('PAY010', '2024-11-22', '2024-12-06');
+('PAY010', '2024-11-22', '2024-12-06'),
+-- Additional records for gold member P001 (>5 books in past month)
+('PAY011', '2024-11-08', '2024-11-22'),
+('PAY012', '2024-11-10', '2024-11-24'),
+('PAY013', '2024-11-14', '2024-11-28'),
+('PAY014', '2024-11-16', '2024-11-30'),
+-- Historical records (past year) for PopularBooks
+('PAY015', '2024-01-15', '2024-01-29'),
+('PAY016', '2024-02-10', '2024-02-24'),
+('PAY017', '2024-03-05', '2024-03-19'),
+('PAY018', '2024-04-12', '2024-04-26'),
+('PAY019', '2024-05-20', '2024-06-03'),
+('PAY020', '2024-06-08', '2024-06-22'),
+('PAY021', '2024-07-15', '2024-07-29'),
+('PAY022', '2024-08-22', '2024-09-05'),
+('PAY023', '2024-09-10', '2024-09-24'),
+('PAY024', '2024-10-18', '2024-11-01'),
+-- Monthly records for silver member P002 (PotentialGoldMember)
+('PAY025', '2024-01-05', '2024-01-19'),
+('PAY026', '2024-02-05', '2024-02-19'),
+('PAY027', '2024-03-05', '2024-03-19'),
+('PAY028', '2024-04-05', '2024-04-19'),
+('PAY029', '2024-05-05', '2024-05-19'),
+('PAY030', '2024-06-05', '2024-06-19'),
+('PAY031', '2024-07-05', '2024-07-19'),
+('PAY032', '2024-08-05', '2024-08-19'),
+('PAY033', '2024-09-05', '2024-09-19'),
+('PAY034', '2024-10-05', '2024-10-19'),
+('PAY035', '2024-11-05', '2024-11-19'),
+('PAY036', '2024-12-05', '2024-12-19'),
+-- Monthly records for silver member P004 (PotentialGoldMember)
+('PAY037', '2024-01-10', '2024-01-24'),
+('PAY038', '2024-02-10', '2024-02-24'),
+('PAY039', '2024-03-10', '2024-03-24'),
+('PAY040', '2024-04-10', '2024-04-24'),
+('PAY041', '2024-05-10', '2024-05-24'),
+('PAY042', '2024-06-10', '2024-06-24'),
+('PAY043', '2024-07-10', '2024-07-24'),
+('PAY044', '2024-08-10', '2024-08-24'),
+('PAY045', '2024-09-10', '2024-09-24'),
+('PAY046', '2024-10-10', '2024-10-24'),
+('PAY047', '2024-11-10', '2024-11-24'),
+('PAY048', '2024-12-03', '2024-12-17'),
+-- Additional historical records
+('PAY049', '2024-01-20', '2024-02-03'),
+('PAY050', '2024-02-20', '2024-03-05');
 
 -- ---------------------------------------------
 -- 23. BORROWS (Depends on BORROWING_RECORD and MEMBER)
 -- ---------------------------------------------
 INSERT INTO BORROWS (Payment_ID, Member_ID) VALUES
-('PAY001', 'P001'),
-('PAY002', 'P002'),
-('PAY003', 'P003'),
-('PAY004', 'P004'),
-('PAY005', 'P005'),
-('PAY006', 'P006'),
-('PAY007', 'P007'),
-('PAY008', 'P008'),
-('PAY009', 'P009'),
-('PAY010', 'P010');
+-- Recent borrows
+('PAY001', 'P001'),  -- Gold member
+('PAY002', 'P002'),  -- Silver member
+('PAY003', 'P003'),  -- Gold member
+('PAY004', 'P004'),  -- Silver member
+('PAY005', 'P005'),  -- Gold member
+('PAY006', 'P006'),  -- Silver member
+('PAY007', 'P007'),  -- Gold member
+('PAY008', 'P008'),  -- Silver member
+('PAY009', 'P009'),  -- Gold member
+('PAY010', 'P010'),  -- Silver member
+-- Additional borrows for gold member P001 in past month (total >5 books)
+('PAY011', 'P001'),
+('PAY012', 'P001'),
+('PAY013', 'P001'),
+('PAY014', 'P001'),
+-- Historical borrows for past year
+('PAY015', 'P003'),
+('PAY016', 'P005'),
+('PAY017', 'P007'),
+('PAY018', 'P009'),
+('PAY019', 'P001'),
+('PAY020', 'P003'),
+('PAY021', 'P005'),
+('PAY022', 'P007'),
+('PAY023', 'P009'),
+('PAY024', 'P001'),
+-- Monthly borrows for silver member P002 (PotentialGoldMember - every month 2024)
+('PAY025', 'P002'),
+('PAY026', 'P002'),
+('PAY027', 'P002'),
+('PAY028', 'P002'),
+('PAY029', 'P002'),
+('PAY030', 'P002'),
+('PAY031', 'P002'),
+('PAY032', 'P002'),
+('PAY033', 'P002'),
+('PAY034', 'P002'),
+('PAY035', 'P002'),
+('PAY036', 'P002'),
+-- Monthly borrows for silver member P004 (PotentialGoldMember - every month 2024)
+('PAY037', 'P004'),
+('PAY038', 'P004'),
+('PAY039', 'P004'),
+('PAY040', 'P004'),
+('PAY041', 'P004'),
+('PAY042', 'P004'),
+('PAY043', 'P004'),
+('PAY044', 'P004'),
+('PAY045', 'P004'),
+('PAY046', 'P004'),
+('PAY047', 'P004'),
+('PAY048', 'P004'),
+-- Additional historical
+('PAY049', 'P006'),
+('PAY050', 'P008');
 
 -- ---------------------------------------------
 -- 24. CATALOGING_LOG (Depends on CATALOGING_MANAGER and BOOK)
@@ -367,19 +542,26 @@ INSERT INTO MAINTAINS (Receptionist_ID, Payment_ID) VALUES
 -- 26. INQUIRY (Depends on MEMBER and RECEPTIONIST)
 -- ---------------------------------------------
 INSERT INTO INQUIRY (Inquiry_ID, Inquiry_Time, Resolution_Status, Member_ID, Rating, Receptionist_ID) VALUES
+-- Past month inquiries - EMP005 resolved more than 5 (ActiveReceptionist view)
 ('INQ001', '2024-11-01 09:00:00', 'Resolved', 'P001', 5, 'EMP005'),
 ('INQ002', '2024-11-05 10:30:00', 'Resolved', 'P002', 4, 'EMP005'),
-('INQ003', '2024-11-08 14:15:00', 'Pending', 'P003', NULL, 'EMP005'),
+('INQ003', '2024-11-08 14:15:00', 'Resolved', 'P003', 5, 'EMP005'),
 ('INQ004', '2024-11-12 11:45:00', 'Resolved', 'P004', 5, 'EMP005'),
-('INQ005', '2024-11-15 16:00:00', 'In Progress', 'P005', NULL, 'EMP005'),
+('INQ005', '2024-11-15 16:00:00', 'Resolved', 'P005', 4, 'EMP005'),
 ('INQ006', '2024-11-18 09:30:00', 'Resolved', 'P006', 4, 'EMP005'),
 ('INQ007', '2024-11-20 13:20:00', 'Resolved', 'P007', 5, 'EMP005'),
-('INQ008', '2024-11-22 10:10:00', 'Pending', 'P008', NULL, 'EMP005');
+('INQ008', '2024-11-22 10:10:00', 'Resolved', 'P008', 5, 'EMP005'),
+('INQ009', '2024-11-24 14:30:00', 'Pending', 'P009', NULL, 'EMP005'),
+('INQ010', '2024-11-26 11:00:00', 'In Progress', 'P010', NULL, 'EMP005'),
+-- Older inquiries
+('INQ011', '2024-10-15 09:00:00', 'Resolved', 'P001', 5, 'EMP005'),
+('INQ012', '2024-09-20 10:30:00', 'Resolved', 'P002', 4, 'EMP005');
 
 -- ---------------------------------------------
 -- 27. ENTRY (Depends on BORROWING_RECORD and BOOK)
 -- ---------------------------------------------
 INSERT INTO ENTRY (Payment_ID, Book_ID) VALUES
+-- Recent entries (past month)
 ('PAY001', 'BK00000001'),
 ('PAY001', 'BK00000002'),  -- Multiple books in one borrowing
 ('PAY002', 'BK00000003'),
@@ -394,7 +576,52 @@ INSERT INTO ENTRY (Payment_ID, Book_ID) VALUES
 ('PAY009', 'BK00000012'),
 ('PAY010', 'BK00000013'),
 ('PAY010', 'BK00000014'),
-('PAY010', 'BK00000015');
+('PAY010', 'BK00000015'),
+-- Additional entries for P001's borrowing records (past month)
+('PAY011', 'BK00000001'),  -- Harry Potter (popular)
+('PAY012', 'BK00000002'),  -- 1984
+('PAY013', 'BK00000005'),  -- Harry Potter again
+('PAY014', 'BK00000007'),  -- Lord of the Rings
+-- Historical entries - making Harry Potter (BK00000005) and 1984 (BK00000002) most borrowed
+('PAY015', 'BK00000005'),  -- Harry Potter
+('PAY016', 'BK00000005'),  -- Harry Potter
+('PAY017', 'BK00000002'),  -- 1984
+('PAY018', 'BK00000005'),  -- Harry Potter
+('PAY019', 'BK00000002'),  -- 1984
+('PAY020', 'BK00000005'),  -- Harry Potter
+('PAY021', 'BK00000002'),  -- 1984
+('PAY022', 'BK00000005'),  -- Harry Potter
+('PAY023', 'BK00000002'),  -- 1984
+('PAY024', 'BK00000005'),  -- Harry Potter
+-- Monthly entries for P002 (PotentialGoldMember)
+('PAY025', 'BK00000003'),
+('PAY026', 'BK00000004'),
+('PAY027', 'BK00000006'),
+('PAY028', 'BK00000008'),
+('PAY029', 'BK00000009'),
+('PAY030', 'BK00000010'),
+('PAY031', 'BK00000011'),
+('PAY032', 'BK00000012'),
+('PAY033', 'BK00000013'),
+('PAY034', 'BK00000014'),
+('PAY035', 'BK00000015'),
+('PAY036', 'BK00000001'),
+-- Monthly entries for P004 (PotentialGoldMember)
+('PAY037', 'BK00000002'),
+('PAY038', 'BK00000003'),
+('PAY039', 'BK00000004'),
+('PAY040', 'BK00000005'),
+('PAY041', 'BK00000006'),
+('PAY042', 'BK00000007'),
+('PAY043', 'BK00000008'),
+('PAY044', 'BK00000009'),
+('PAY045', 'BK00000010'),
+('PAY046', 'BK00000011'),
+('PAY047', 'BK00000012'),
+('PAY048', 'BK00000013'),
+-- Additional historical
+('PAY049', 'BK00000014'),
+('PAY050', 'BK00000015');
 
 -- ==============================================
 -- END OF SAMPLE DATA
