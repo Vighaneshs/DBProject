@@ -1,0 +1,17 @@
+USE jungle_library_db;
+
+CREATE OR REPLACE VIEW PotentialGoldMember AS
+SELECT DISTINCT P.FName, P.MName, P.LName, PN.Phone_Number, P.Person_ID
+FROM PERSON AS P
+JOIN PERSON_PHONE_NUMBER AS PN ON P.Person_ID = PN.Person_ID
+JOIN MEMBER AS M ON P.Person_ID = M.Member_ID
+JOIN BORROWS AS B ON B.Member_ID = M.Member_ID
+JOIN BORROWING_RECORD AS BR ON BR.Payment_ID = B.Payment_ID
+WHERE M.Member_type = 'silver' AND EXISTS (
+    SELECT BRS.Member_ID
+    FROM BORROWS AS BRS
+    JOIN BORROWING_RECORD AS BRN ON BRN.Payment_ID = BRS.Payment_ID
+    WHERE BRS.Member_ID = M.Member_ID AND BRN.Issue_Date >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
+    GROUP BY BRS.Member_ID
+    HAVING COUNT(DISTINCT MONTH(BRN.Issue_Date)) = 12
+);
