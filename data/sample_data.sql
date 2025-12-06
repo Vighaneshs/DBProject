@@ -203,29 +203,36 @@ INSERT INTO COMMENTS (Person_ID, Book_ID, Comment_Time, Rating, Content) VALUES
 ('P006', 'BK00000003', '2024-06-01 13:45:00', 5, 'Witty, charming, and brilliantly written.'),
 ('P007', 'BK00000009', '2024-06-15 10:15:00', 4, 'A powerful allegory. Orwell at his finest.'),
 ('P008', 'BK00000014', '2024-07-01 14:30:00', 5, 'Mind-bending and accessible. Hawking makes physics fascinating.'),
-('P009', 'BK00000003', '2024-07-10 09:00:00', 4, 'Classic romance done right. Love the characters.'),
+('P009', 'BK00000003', '2024-07-10 09:00:00', 2, 'Too slow-paced for my taste. Could not get into it.'),
 ('P010', 'BK00000009', '2024-08-05 16:00:00', 5, 'Every sentence has meaning. Absolutely brilliant.'),
 -- PUB5 (Hachette) books: BK00000007, BK00000008
 ('P001', 'BK00000007', '2024-08-15 10:45:00', 5, 'The greatest fantasy epic ever written.'),
 ('P002', 'BK00000008', '2024-08-20 13:00:00', 5, 'Charming and adventurous. Perfect prequel to LOTR.'),
-('P003', 'BK00000007', '2024-09-01 11:30:00', 4, 'Rich world, unforgettable characters.'),
+('P003', 'BK00000007', '2024-09-01 11:30:00', 2, 'Way too long and descriptive. Lost interest halfway through.'),
 ('P004', 'BK00000008', '2024-09-10 15:20:00', 4, 'A delightful journey. Bilbo is wonderful.'),
 -- PUB2 (HarperCollins) books: BK00000001, BK00000010, BK00000011, BK00000015
 ('P005', 'BK00000001', '2024-09-20 10:00:00', 5, 'Powerful and moving. A true American classic.'),
 ('P006', 'BK00000011', '2024-10-01 14:00:00', 4, 'Magical adventures in Narnia. Lewis creates wonder.'),
-('P007', 'BK00000015', '2024-10-15 09:30:00', 5, 'Revolutionary perspective on human history.'),
+('P007', 'BK00000015', '2024-10-15 09:30:00', 3, 'Interesting ideas but felt somewhat repetitive at times.'),
 ('P008', 'BK00000010', '2024-10-20 13:15:00', 5, 'Disturbing and brilliant. Huxley was a visionary.'),
-('P009', 'BK00000011', '2024-11-01 10:30:00', 5, 'Timeless fantasy. Perfect for all ages.'),
+('P009', 'BK00000011', '2024-11-01 10:30:00', 2, 'Too childish for my liking. Expected more depth.'),
 -- PUB7 (Pearson Education) - BK00000013
 ('P010', 'BK00000013', '2024-11-05 15:00:00', 5, 'Comprehensive and essential for CS students.'),
 ('P001', 'BK00000013', '2024-11-10 11:00:00', 4, 'Detailed and well-structured. Great reference.'),
+('P002', 'BK00000013', '2024-11-12 09:20:00', 2, 'Too dense and dry. Hard to follow without a course.'),
 -- PUB3 (Simon & Schuster) books: BK00000004, BK00000012
 ('P002', 'BK00000004', '2024-11-15 10:30:00', 4, 'Beautiful prose. Captures the Jazz Age perfectly.'),
 ('P003', 'BK00000012', '2024-11-20 14:00:00', 5, 'Powerful warning about censorship. Brilliant.'),
-('P004', 'BK00000004', '2024-11-22 09:45:00', 5, 'Gatsby is unforgettable. Fitzgerald is a master.'),
+('P004', 'BK00000004', '2024-11-22 09:45:00', 1, 'Overrated. Characters are shallow and unlikeable.'),
+('P010', 'BK00000012', '2024-11-23 11:30:00', 3, 'Good message but the plot felt a bit thin.'),
 -- PUB4 (Macmillan) - BK00000006
 ('P005', 'BK00000006', '2024-11-25 13:30:00', 4, 'Captures teenage angst perfectly. Holden is iconic.'),
-('P006', 'BK00000006', '2024-11-28 10:00:00', 4, 'Raw and honest. A coming-of-age classic.');
+('P006', 'BK00000006', '2024-11-28 10:00:00', 2, 'Found the protagonist whiny and annoying.'),
+-- More low ratings for variety
+('P007', 'BK00000014', '2024-11-29 14:00:00', 2, 'Too technical for casual readers. Could not finish.'),
+('P008', 'BK00000015', '2024-11-30 16:30:00', 1, 'Disappointing. Expected more rigor and less speculation.'),
+('P009', 'BK00000002', '2024-12-01 10:15:00', 3, 'Interesting concept but execution felt dated.'),
+('P010', 'BK00000008', '2024-12-02 12:45:00', 3, 'Nice story but pacing was uneven.');
 
 -- ---------------------------------------------
 -- 13. AUTHOR (No dependencies)
