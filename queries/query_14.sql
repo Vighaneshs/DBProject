@@ -20,7 +20,6 @@ WHERE NOT EXISTS (
         WHERE 
             cl.Manager_ID = cm.Employee_ID
             AND b2.Category = b.Category
-            AND cl.Catalog_Date >= DATE_SUB('2025-03-28', INTERVAL 4 WEEK)
-
+            AND cl.Catalog_Date >= DATE_SUB(CURDATE(), INTERVAL 4 WEEK)
     )
 );
