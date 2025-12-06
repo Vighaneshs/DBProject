@@ -252,6 +252,24 @@ INSERT INTO AUTHOR (Author_ID, Author_Name) VALUES
 ('A012', 'Stephen Hawking'),
 ('A013', 'Yuval Noah Harari');
 
+-- Additional books by A005 (J.K. Rowling) for testing
+INSERT INTO BOOK (Book_ID, Book_Title, Category, Synopsis, Publisher_ID) VALUES
+('BK00000016', 'Harry Potter: Chamber of Secrets', 'Fantasy', 'Harry returns to Hogwarts for his second year and faces the mystery of the Chamber of Secrets.', 'PUB6'),
+('BK00000017', 'Harry Potter: Prisoner of Azkaban', 'Fantasy', 'Harry learns about Sirius Black and discovers secrets about his past in his third year.', 'PUB6'),
+('BK00000018', 'Harry Potter: Goblet of Fire', 'Fantasy', 'Harry competes in the dangerous Triwizard Tournament in his fourth year at Hogwarts.', 'PUB6'),
+('BK00000019', 'Harry Potter: Order of the Phoenix', 'Fantasy', 'Harry and his friends form Dumbledores Army to fight against the rise of Voldemort.', 'PUB6'),
+('BK00000020', 'Harry Potter: Half-Blood Prince', 'Fantasy', 'Harry discovers the Half-Blood Princes potions book and learns about Voldemorts past.', 'PUB6'),
+('BK00000021', 'Harry Potter: Deathly Hallows', 'Fantasy', 'The final battle between Harry Potter and Lord Voldemort comes to an epic conclusion.', 'PUB6');
+
+-- Link new books to author A005
+INSERT INTO WRITES (Author_ID, Book_ID) VALUES
+('A005', 'BK00000016'),
+('A005', 'BK00000017'),
+('A005', 'BK00000018'),
+('A005', 'BK00000019'),
+('A005', 'BK00000020'),
+('A005', 'BK00000021');
+
 -- ---------------------------------------------
 -- 14. AUTHOR_EMAIL (Depends on AUTHOR)
 -- ---------------------------------------------
@@ -393,7 +411,22 @@ INSERT INTO PAYMENT (Payment_ID, Payment_Method, Payment_Date, Amount_Paid) VALU
 ('PAY051', 'Credit Card', '2025-12-01', 10.00),
 -- Additional historical payments
 ('PAY049', 'Cash', '2024-01-20', 15.00),
-('PAY050', 'Credit Card', '2024-02-20', 15.00);
+('PAY050', 'Credit Card', '2024-02-20', 15.00),
+-- Payments for new Harry Potter books (members borrowing all A005 books)
+('PAY053', 'Credit Card', '2024-03-10', 15.00),
+('PAY054', 'Credit Card', '2024-04-15', 15.00),
+('PAY055', 'Credit Card', '2024-05-10', 15.00),
+('PAY056', 'Credit Card', '2024-06-12', 15.00),
+('PAY057', 'Credit Card', '2024-07-08', 15.00),
+('PAY058', 'Credit Card', '2024-08-14', 15.00),
+('PAY059', 'Credit Card', '2024-03-12', 15.00),
+('PAY060', 'Credit Card', '2024-04-18', 15.00),
+('PAY061', 'Credit Card', '2024-05-15', 15.00),
+('PAY062', 'Credit Card', '2024-06-20', 15.00),
+('PAY063', 'Credit Card', '2024-07-18', 15.00),
+('PAY064', 'Credit Card', '2024-08-22', 15.00),
+('PAY065', 'Debit Card', '2024-04-05', 15.00),
+('PAY066', 'Debit Card', '2024-05-08', 15.00);
 
 -- ---------------------------------------------
 -- 22. BORROWING_RECORD (Depends on PAYMENT)
@@ -439,9 +472,24 @@ INSERT INTO BORROWING_RECORD (Payment_ID, Issue_Date, Return_Due_Date) VALUES
 ('PAY033', '2025-09-05', '2024-09-19'),
 ('PAY034', '2025-10-05', '2024-10-19'),
 ('PAY035', '2025-11-05', '2024-11-19'),
-('PAY036', '2025-12-05', '2024-12-19'),
--- Monthly records for silver member P004 (PotentialGoldMember)
-('PAY051', '2024-12-01', '2024-01-24'),
+-- Additional historical records
+('PAY049', '2024-01-20', '2024-02-03'),
+('PAY050', '2024-02-20', '2024-03-05'),
+-- Borrowing records for new Harry Potter books
+('PAY053', '2024-03-10', '2024-03-24'),
+('PAY054', '2024-04-15', '2024-04-29'),
+('PAY055', '2024-05-10', '2024-05-24'),
+('PAY056', '2024-06-12', '2024-06-26'),
+('PAY057', '2024-07-08', '2024-07-22'),
+('PAY058', '2024-08-14', '2024-08-28'),
+('PAY059', '2024-03-12', '2024-03-26'),
+('PAY060', '2024-04-18', '2024-05-02'),
+('PAY061', '2024-05-15', '2024-05-29'),
+('PAY062', '2024-06-20', '2024-07-04'),
+('PAY063', '2024-07-18', '2024-08-01'),
+('PAY064', '2024-08-22', '2024-09-05'),
+('PAY065', '2024-04-05', '2024-04-19'),
+('PAY066', '2024-05-08', '2024-05-22'),
 ('PAY037', '2025-01-10', '2024-01-24'),
 ('PAY038', '2025-02-10', '2024-02-24'),
 ('PAY039', '2025-03-10', '2024-03-24'),
@@ -451,12 +499,11 @@ INSERT INTO BORROWING_RECORD (Payment_ID, Issue_Date, Return_Due_Date) VALUES
 ('PAY043', '2025-07-10', '2024-07-24'),
 ('PAY044', '2025-08-10', '2024-08-24'),
 ('PAY045', '2025-09-10', '2024-09-24'),
-('PAY046', '2025-10-10', '2024-10-24'),
-('PAY047', '2025-11-10', '2024-11-24'),
+('PAY046', '2024-10-10', '2024-10-24'),
+('PAY047', '2024-11-10', '2024-11-24'),
 ('PAY048', '2025-12-03', '2024-12-17'),
--- Additional historical records
-('PAY049', '2024-01-20', '2024-02-03'),
-('PAY050', '2024-02-20', '2024-03-05');
+('PAY036', '2025-12-05', '2024-12-19'),
+('PAY051', '2024-12-01', '2024-01-24');
 
 -- ---------------------------------------------
 -- 23. BORROWS (Depends on BORROWING_RECORD and MEMBER)
@@ -487,9 +534,28 @@ INSERT INTO BORROWS (Payment_ID, Member_ID) VALUES
 ('PAY020', 'P003'),
 ('PAY021', 'P005'),
 ('PAY022', 'P007'),
+-- Additional historical
+('PAY049', 'P006'),
+('PAY050', 'P008'),
+-- Borrows for new Harry Potter books - P001 and P003 borrow all A005 books
+('PAY053', 'P001'),  -- Gold member P001
+('PAY054', 'P001'),
+('PAY055', 'P001'),
+('PAY056', 'P001'),
+('PAY057', 'P001'),
+('PAY058', 'P001'),
+('PAY059', 'P003'),  -- Gold member P003
+('PAY060', 'P003'),
+('PAY061', 'P003'),
+('PAY062', 'P003'),
+('PAY063', 'P003'),
+('PAY064', 'P003'),
+-- P005 borrows some (but not all) A005 books
+('PAY065', 'P005'),
+('PAY066', 'P005'),
+-- Monthly borrows for silver member P002 (PotentialGoldMember - every month 2024)
 ('PAY023', 'P009'),
 ('PAY024', 'P001'),
--- Monthly borrows for silver member P002 (PotentialGoldMember - every month 2024)
 ('PAY025', 'P002'),
 ('PAY026', 'P002'),
 ('PAY027', 'P002'),
@@ -516,10 +582,7 @@ INSERT INTO BORROWS (Payment_ID, Member_ID) VALUES
 ('PAY046', 'P004'),
 ('PAY047', 'P004'),
 ('PAY048', 'P004'),
-('PAY051', 'P004'),
--- Additional historical
-('PAY049', 'P006'),
-('PAY050', 'P008');
+('PAY051', 'P004');
 
 -- ---------------------------------------------
 -- 24. CATALOGING_LOG (Depends on CATALOGING_MANAGER and BOOK)
@@ -619,7 +682,9 @@ INSERT INTO ENTRY (Payment_ID, Book_ID) VALUES
 ('PAY034', 'BK00000014'),
 ('PAY035', 'BK00000015'),
 ('PAY036', 'BK00000001'),
+('PAY052', 'BK00000002'),
 -- Monthly entries for P004 (PotentialGoldMember)
+('PAY051', 'BK00000003'),
 ('PAY037', 'BK00000002'),
 ('PAY038', 'BK00000003'),
 ('PAY039', 'BK00000004'),
@@ -634,8 +699,28 @@ INSERT INTO ENTRY (Payment_ID, Book_ID) VALUES
 ('PAY048', 'BK00000013'),
 -- Additional historical
 ('PAY049', 'BK00000014'),
-('PAY050', 'BK00000015');
+('PAY050', 'BK00000015'),
+-- Entries for new Harry Potter books
+-- P001 borrows all 6 new Harry Potter books (already borrowed BK00000005)
+('PAY053', 'BK00000016'),  -- Chamber of Secrets
+('PAY054', 'BK00000017'),  -- Prisoner of Azkaban
+('PAY055', 'BK00000018'),  -- Goblet of Fire
+('PAY056', 'BK00000019'),  -- Order of the Phoenix
+('PAY057', 'BK00000020'),  -- Half-Blood Prince
+('PAY058', 'BK00000021'),  -- Deathly Hallows
+-- P003 borrows all 6 new Harry Potter books (already borrowed BK00000005)
+('PAY059', 'BK00000016'),  -- Chamber of Secrets
+('PAY060', 'BK00000017'),  -- Prisoner of Azkaban
+('PAY061', 'BK00000018'),  -- Goblet of Fire
+('PAY062', 'BK00000019'),  -- Order of the Phoenix
+('PAY063', 'BK00000020'),  -- Half-Blood Prince
+('PAY064', 'BK00000021'),  -- Deathly Hallows
+-- P005 borrows only 2 new Harry Potter books (partial borrowing)
+('PAY065', 'BK00000016'),  -- Chamber of Secrets
+('PAY066', 'BK00000017');  -- Prisoner of Azkaban
 
+-- ==============================================
+-- END OF SAMPLE DATA
 -- ==============================================
 -- END OF SAMPLE DATA
 -- ==============================================
