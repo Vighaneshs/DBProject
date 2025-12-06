@@ -512,16 +512,16 @@ INSERT INTO BORROWS (Payment_ID, Member_ID) VALUES
 -- 24. CATALOGING_LOG (Depends on CATALOGING_MANAGER and BOOK)
 -- ---------------------------------------------
 INSERT INTO CATALOGING_LOG (Manager_ID, Book_ID, Catalog_Date) VALUES
-('EMP001', 'BK00000001', '2023-01-10'),
-('EMP001', 'BK00000002', '2023-01-11'),
-('EMP001', 'BK00000003', '2023-01-12'),
-('EMP003', 'BK00000004', '2023-01-15'),
-('EMP003', 'BK00000005', '2023-01-16'),
-('EMP001', 'BK00000006', '2023-02-01'),
-('EMP003', 'BK00000007', '2023-02-05'),
-('EMP001', 'BK00000008', '2023-02-10'),
-('EMP003', 'BK00000009', '2023-03-01'),
-('EMP001', 'BK00000010', '2023-03-15');
+('EMP001', 'BK00000001', '2025-01-10'),
+('EMP001', 'BK00000002', '2025-01-11'),
+('EMP001', 'BK00000003', '2025-01-12'),
+('EMP003', 'BK00000004', '2025-01-15'),
+('EMP003', 'BK00000005', '2025-01-16'),
+('EMP001', 'BK00000006', '2025-02-01'),
+('EMP003', 'BK00000007', '2025-02-05'),
+('EMP001', 'BK00000008', '2025-02-10'),
+('EMP003', 'BK00000009', '2025-03-01'),
+('EMP001', 'BK00000010', '2025-03-15');
 
 -- ---------------------------------------------
 -- 25. MAINTAINS (Depends on RECEPTIONIST and BORROWING_RECORD)
@@ -543,19 +543,19 @@ INSERT INTO MAINTAINS (Receptionist_ID, Payment_ID) VALUES
 -- ---------------------------------------------
 INSERT INTO INQUIRY (Inquiry_ID, Inquiry_Time, Resolution_Status, Member_ID, Rating, Receptionist_ID) VALUES
 -- Past month inquiries - EMP005 resolved more than 5 (ActiveReceptionist view)
-('INQ001', '2024-11-01 09:00:00', 'Resolved', 'P001', 5, 'EMP005'),
-('INQ002', '2024-11-05 10:30:00', 'Resolved', 'P002', 4, 'EMP005'),
-('INQ003', '2024-11-08 14:15:00', 'Resolved', 'P003', 5, 'EMP005'),
-('INQ004', '2024-11-12 11:45:00', 'Resolved', 'P004', 5, 'EMP005'),
-('INQ005', '2024-11-15 16:00:00', 'Resolved', 'P005', 4, 'EMP005'),
-('INQ006', '2024-11-18 09:30:00', 'Resolved', 'P006', 4, 'EMP005'),
-('INQ007', '2024-11-20 13:20:00', 'Resolved', 'P007', 5, 'EMP005'),
-('INQ008', '2024-11-22 10:10:00', 'Resolved', 'P008', 5, 'EMP005'),
-('INQ009', '2024-11-24 14:30:00', 'Pending', 'P009', NULL, 'EMP005'),
-('INQ010', '2024-11-26 11:00:00', 'In Progress', 'P010', NULL, 'EMP005'),
+('INQ001', '2025-11-01 09:00:00', 'Resolved', 'P001', 5, 'EMP005'),
+('INQ002', '2025-11-05 10:30:00', 'Resolved', 'P002', 4, 'EMP005'),
+('INQ003', '2025-11-08 14:15:00', 'Resolved', 'P003', 5, 'EMP005'),
+('INQ004', '2025-11-12 11:45:00', 'Resolved', 'P004', 5, 'EMP005'),
+('INQ005', '2025-11-15 16:00:00', 'Resolved', 'P005', 4, 'EMP005'),
+('INQ006', '2025-11-18 09:30:00', 'Resolved', 'P006', 4, 'EMP005'),
+('INQ007', '2025-11-20 13:20:00', 'Resolved', 'P007', 5, 'EMP005'),
+('INQ008', '2025-11-22 10:10:00', 'Resolved', 'P008', 5, 'EMP005'),
+('INQ009', '2025-11-24 14:30:00', 'Pending', 'P009', NULL, 'EMP005'),
+('INQ010', '2025-11-26 11:00:00', 'In Progress', 'P010', NULL, 'EMP005'),
 -- Older inquiries
-('INQ011', '2024-10-15 09:00:00', 'Resolved', 'P001', 5, 'EMP005'),
-('INQ012', '2024-09-20 10:30:00', 'Resolved', 'P002', 4, 'EMP005');
+('INQ011', '2025-10-15 09:00:00', 'Resolved', 'P001', 5, 'EMP005'),
+('INQ012', '2025-09-20 10:30:00', 'Resolved', 'P002', 4, 'EMP005');
 
 -- ---------------------------------------------
 -- 27. ENTRY (Depends on BORROWING_RECORD and BOOK)
