@@ -97,6 +97,7 @@ def main():
         print("Creating views...")
         run_sql_file(cursor, 'schema/views/view_top_gold_member.sql')
         run_sql_file(cursor, 'schema/views/active_receptionist.sql')
+        run_sql_file(cursor, 'schema/views/best_rating_publisher.sql')
         conn.commit()
         
         # Load sample data
