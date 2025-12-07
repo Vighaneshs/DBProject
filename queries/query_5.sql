@@ -1,0 +1,10 @@
+USE jungle_library_db;
+
+SELECT B.Book_Title
+FROM BOOK B
+WHERE B.Book_ID NOT IN (
+    SELECT EE.Book_ID
+    FROM ENTRY EE
+    JOIN BORROWING_RECORD BR ON BR.Payment_ID = EE.Payment_ID
+    WHERE BR.Issue_Date >= DATE_SUB(CURDATE(), INTERVAL 5 MONTH)
+);

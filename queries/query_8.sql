@@ -1,0 +1,7 @@
+USE jungle_library_db;
+
+SELECT YEAR(Issue_Date)
+FROM BORROWING_RECORD
+GROUP BY YEAR(Issue_Date)
+ORDER BY COUNT(YEAR(Issue_Date)) DESC
+LIMIT 1;

@@ -1,3 +1,5 @@
+USE jungle_library_db;
+
 SELECT DISTINCT B.Member_ID
 FROM BORROWS AS B
 JOIN ENTRY AS E ON E.Payment_ID = B.Payment_ID
