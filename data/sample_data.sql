@@ -259,7 +259,29 @@ INSERT INTO BOOK (Book_ID, Book_Title, Category, Synopsis, Publisher_ID) VALUES
 ('BK00000018', 'Harry Potter: Goblet of Fire', 'Fantasy', 'Harry competes in the dangerous Triwizard Tournament in his fourth year at Hogwarts.', 'PUB6'),
 ('BK00000019', 'Harry Potter: Order of the Phoenix', 'Fantasy', 'Harry and his friends form Dumbledores Army to fight against the rise of Voldemort.', 'PUB6'),
 ('BK00000020', 'Harry Potter: Half-Blood Prince', 'Fantasy', 'Harry discovers the Half-Blood Princes potions book and learns about Voldemorts past.', 'PUB6'),
-('BK00000021', 'Harry Potter: Deathly Hallows', 'Fantasy', 'The final battle between Harry Potter and Lord Voldemort comes to an epic conclusion.', 'PUB6');
+('BK00000021', 'Harry Potter: Deathly Hallows', 'Fantasy', 'The final battle between Harry Potter and Lord Voldemort comes to an epic conclusion.', 'PUB6'),
+-- Additional books for cataloging test - need multiple books per category to avoid duplicate key errors
+('BK00000022', 'The Hunger Games', 'Fiction', 'A dystopian novel about survival and rebellion.', 'PUB3'),
+('BK00000023', 'Enders Game', 'Science Fiction', 'A military science fiction novel about a child genius.', 'PUB4'),
+('BK00000024', 'Outlander', 'Romance', 'A time-traveling romance novel.', 'PUB5'),
+('BK00000025', 'The Name of the Wind', 'Fantasy', 'A fantasy novel about a legendary hero.', 'PUB1'),
+('BK00000026', 'Clean Code', 'Technology', 'A handbook of agile software craftsmanship.', 'PUB7'),
+('BK00000027', 'The Selfish Gene', 'Science', 'An evolutionary biology classic.', 'PUB8'),
+('BK00000028', 'Guns Germs and Steel', 'History', 'A study of human societies and their development.', 'PUB2'),
+('BK00000029', 'Catch-22', 'Fiction', 'A satirical war novel.', 'PUB3'),
+('BK00000030', 'Foundation', 'Science Fiction', 'A space opera about the fall and rise of civilizations.', 'PUB4'),
+('BK00000031', 'The Notebook', 'Romance', 'A romantic drama about enduring love.', 'PUB5'),
+('BK00000032', 'Mistborn', 'Fantasy', 'An epic fantasy about overthrowing an empire.', 'PUB1'),
+('BK00000033', 'Design Patterns', 'Technology', 'Elements of reusable object-oriented software.', 'PUB7'),
+('BK00000034', 'Cosmos', 'Science', 'A journey through space and time.', 'PUB8'),
+('BK00000035', 'The Diary of Anne Frank', 'History', 'A firsthand account of life during the Holocaust.', 'PUB2'),
+('BK00000036', 'Slaughterhouse-Five', 'Fiction', 'An anti-war novel about time travel and bombing.', 'PUB3'),
+('BK00000037', 'Dune', 'Science Fiction', 'A science fiction epic about desert planets and politics.', 'PUB4'),
+('BK00000038', 'Me Before You', 'Romance', 'A touching story about love and life choices.', 'PUB5'),
+('BK00000039', 'The Way of Kings', 'Fantasy', 'The first book in the Stormlight Archive series.', 'PUB1'),
+('BK00000040', 'The Pragmatic Programmer', 'Technology', 'Your journey to mastery in software development.', 'PUB7'),
+('BK00000041', 'The Origin of Species', 'Science', 'Darwins groundbreaking work on evolution.', 'PUB8'),
+('BK00000042', 'A Peoples History of the United States', 'History', 'American history from the perspective of common people.', 'PUB2');
 
 -- Link new books to author A005
 INSERT INTO WRITES (Author_ID, Book_ID) VALUES
@@ -588,16 +610,104 @@ INSERT INTO BORROWS (Payment_ID, Member_ID) VALUES
 -- 24. CATALOGING_LOG (Depends on CATALOGING_MANAGER and BOOK)
 -- ---------------------------------------------
 INSERT INTO CATALOGING_LOG (Manager_ID, Book_ID, Catalog_Date) VALUES
+-- Historical cataloging entries (using books not used in past 4 weeks test data)
 ('EMP001', 'BK00000001', '2025-01-10'),
 ('EMP001', 'BK00000002', '2025-01-11'),
-('EMP001', 'BK00000003', '2025-01-12'),
-('EMP003', 'BK00000004', '2025-01-15'),
 ('EMP003', 'BK00000005', '2025-01-16'),
-('EMP001', 'BK00000006', '2025-02-01'),
 ('EMP003', 'BK00000007', '2025-02-05'),
 ('EMP001', 'BK00000008', '2025-02-10'),
 ('EMP003', 'BK00000009', '2025-03-01'),
-('EMP001', 'BK00000010', '2025-03-15');
+('EMP001', 'BK00000010', '2025-03-15'),
+
+-- ==============================================
+-- ADDITIONAL CATALOGING DATA FOR TESTING:
+-- Cataloging Managers who cataloged all categories every week in past 4 weeks
+-- Current date: Dec 6, 2025
+-- Past 4 weeks: Nov 8-14, Nov 15-21, Nov 22-28, Nov 29 - Dec 5
+-- Categories: Fiction, Science Fiction, Romance, Fantasy, Technology, Science, History (7 categories)
+-- Note: PRIMARY KEY is (Manager_ID, Book_ID), so each manager can catalog each book only once
+-- ==============================================
+
+-- EMP001 catalogs all 7 categories in EACH of the past 4 weeks (should appear in query)
+-- Week 1 (Nov 8-14, 2025) - All 7 categories using books 4, 12, 24, 16, 26, 27, 28
+('EMP001', 'BK00000004', '2025-11-10'),  -- Fiction (The Great Gatsby)
+('EMP001', 'BK00000012', '2025-11-10'),  -- Science Fiction (Fahrenheit 451)
+('EMP001', 'BK00000024', '2025-11-11'),  -- Romance (Outlander)
+('EMP001', 'BK00000016', '2025-11-12'),  -- Fantasy (Chamber of Secrets)
+('EMP001', 'BK00000026', '2025-11-13'),  -- Technology (Clean Code)
+('EMP001', 'BK00000027', '2025-11-13'),  -- Science (The Selfish Gene)
+('EMP001', 'BK00000028', '2025-11-14'),  -- History (Guns Germs and Steel)
+
+-- Week 2 (Nov 15-21, 2025) - All 7 categories using different books (22, 23, 31, 25, 33, 34, 35)
+('EMP001', 'BK00000022', '2025-11-17'),  -- Fiction (The Hunger Games)
+('EMP001', 'BK00000023', '2025-11-17'),  -- Science Fiction (Enders Game)
+('EMP001', 'BK00000031', '2025-11-18'),  -- Romance (The Notebook)
+('EMP001', 'BK00000025', '2025-11-19'),  -- Fantasy (Name of the Wind)
+('EMP001', 'BK00000033', '2025-11-19'),  -- Technology (Design Patterns)
+('EMP001', 'BK00000034', '2025-11-20'),  -- Science (Cosmos)
+('EMP001', 'BK00000035', '2025-11-21'),  -- History (Diary of Anne Frank)
+
+-- Week 3 (Nov 22-28, 2025) - All 7 categories using different books (29, 30, 38, 32, 40, 41, 42)
+('EMP001', 'BK00000029', '2025-11-24'),  -- Fiction (Catch-22)
+('EMP001', 'BK00000030', '2025-11-24'),  -- Science Fiction (Foundation)
+('EMP001', 'BK00000038', '2025-11-25'),  -- Romance (Me Before You)
+('EMP001', 'BK00000032', '2025-11-26'),  -- Fantasy (Mistborn)
+('EMP001', 'BK00000040', '2025-11-26'),  -- Technology (Pragmatic Programmer)
+('EMP001', 'BK00000041', '2025-11-27'),  -- Science (Origin of Species)
+('EMP001', 'BK00000042', '2025-11-28'),  -- History (Peoples History)
+
+-- Week 4 (Nov 29 - Dec 5, 2025) - All 7 categories using different books (36, 37, 3, 39, 13, 14, 15)
+('EMP001', 'BK00000036', '2025-12-01'),  -- Fiction (Slaughterhouse-Five)
+('EMP001', 'BK00000037', '2025-12-01'),  -- Science Fiction (Dune)
+('EMP001', 'BK00000003', '2025-12-02'),  -- Romance (Pride and Prejudice)
+('EMP001', 'BK00000039', '2025-12-03'),  -- Fantasy (Way of Kings)
+('EMP001', 'BK00000013', '2025-12-03'),  -- Technology (Intro to Algorithms)
+('EMP001', 'BK00000014', '2025-12-04'),  -- Science (Brief History of Time)
+('EMP001', 'BK00000015', '2025-12-05'),  -- History (Sapiens)
+
+-- EMP003 catalogs all categories in weeks 1 and 2, but NOT all categories in weeks 3 and 4 (should NOT appear)
+-- Week 1 (Nov 8-14, 2025) - All 7 categories using books already cataloged by EMP003 historically plus new ones
+('EMP003', 'BK00000001', '2025-11-08'),  -- Fiction (To Kill a Mockingbird)
+('EMP003', 'BK00000002', '2025-11-09'),  -- Science Fiction (1984)
+('EMP003', 'BK00000024', '2025-11-10'),  -- Romance (Outlander)
+('EMP003', 'BK00000016', '2025-11-11'),  -- Fantasy (Chamber of Secrets)
+('EMP003', 'BK00000026', '2025-11-12'),  -- Technology (Clean Code)
+('EMP003', 'BK00000027', '2025-11-12'),  -- Science (The Selfish Gene)
+('EMP003', 'BK00000028', '2025-11-13'),  -- History (Guns Germs and Steel)
+
+-- Week 2 (Nov 15-21, 2025) - All 7 categories
+('EMP003', 'BK00000006', '2025-11-15'),  -- Fiction (Catcher in the Rye)
+('EMP003', 'BK00000012', '2025-11-16'),  -- Science Fiction (Fahrenheit 451)
+('EMP003', 'BK00000031', '2025-11-17'),  -- Romance (The Notebook)
+('EMP003', 'BK00000011', '2025-11-18'),  -- Fantasy (Chronicles of Narnia)
+('EMP003', 'BK00000033', '2025-11-18'),  -- Technology (Design Patterns)
+('EMP003', 'BK00000034', '2025-11-19'),  -- Science (Cosmos)
+('EMP003', 'BK00000035', '2025-11-20'),  -- History (Diary of Anne Frank)
+
+-- Week 3 (Nov 22-28, 2025) - Missing Technology and Science (only 5 categories)
+('EMP003', 'BK00000022', '2025-11-22'),  -- Fiction (The Hunger Games)
+('EMP003', 'BK00000023', '2025-11-23'),  -- Science Fiction (Enders Game)
+('EMP003', 'BK00000038', '2025-11-24'),  -- Romance (Me Before You)
+('EMP003', 'BK00000025', '2025-11-25'),  -- Fantasy (Name of the Wind)
+('EMP003', 'BK00000042', '2025-11-26'),  -- History (Peoples History)
+-- Missing: Technology and Science
+
+-- Week 4 (Nov 29 - Dec 5, 2025) - Missing Romance and Fantasy (only 5 categories)
+('EMP003', 'BK00000029', '2025-11-30'),  -- Fiction (Catch-22)
+('EMP003', 'BK00000037', '2025-12-01'),  -- Science Fiction (Dune)
+('EMP003', 'BK00000040', '2025-12-02'),  -- Technology (Pragmatic Programmer)
+('EMP003', 'BK00000041', '2025-12-03'),  -- Science (Origin of Species)
+('EMP003', 'BK00000015', '2025-12-04');  -- History (Sapiens)
+-- Missing: Romance and Fantasy
+
+-- ==============================================
+-- EXPECTED QUERY RESULTS:
+-- The query should return exactly 1 cataloging manager:
+-- - EMP001: Cataloged all 7 categories in each of the past 4 weeks
+--
+-- Should NOT return:
+-- - EMP003: Cataloged all categories in weeks 1 and 2, but missed categories in weeks 3 and 4
+-- ==============================================
 
 -- ---------------------------------------------
 -- 25. MAINTAINS (Depends on RECEPTIONIST and BORROWING_RECORD)
@@ -676,7 +786,6 @@ INSERT INTO ENTRY (Payment_ID, Book_ID) VALUES
 ('PAY028', 'BK00000008'),
 ('PAY029', 'BK00000009'),
 ('PAY030', 'BK00000010'),
-('PAY031', 'BK00000011'),
 ('PAY032', 'BK00000012'),
 ('PAY033', 'BK00000013'),
 ('PAY034', 'BK00000014'),
@@ -720,7 +829,89 @@ INSERT INTO ENTRY (Payment_ID, Book_ID) VALUES
 ('PAY066', 'BK00000017');  -- Prisoner of Azkaban
 
 -- ==============================================
--- END OF SAMPLE DATA
+-- ADDITIONAL DATA FOR TESTING:
+-- Employees who enrolled in gold membership within a month of being employed
+-- ==============================================
+
+-- Add new PERSON records for test employees
+INSERT INTO PERSON (Person_ID, Fname, MName, LName, Address, Gender, DOB) VALUES
+('P016', 'Alice', 'Marie', 'Johnson', '100 Library Lane, Portland, OR', 'F', '1990-05-12'),
+('P017', 'Robert', 'James', 'Chen', '200 Book Street, Eugene, OR', 'M', '1988-09-20'),
+('P018', 'Maria', 'Elena', 'Rodriguez', '300 Reading Road, Salem, OR', 'F', '1992-03-08');
+
+-- Add phone numbers for new persons
+INSERT INTO PERSON_PHONE_NUMBER (Person_ID, Phone_Number) VALUES
+('P016', '503-555-1601'),
+('P017', '541-555-1701'),
+('P018', '503-555-1801');
+
+-- Add MEMBER records (gold membership) for the new employees
+INSERT INTO MEMBER (Member_ID, Member_type, Card_ID) VALUES
+('P016', 'gold', 'CARD-G-016'),
+('P017', 'gold', 'CARD-G-017'),
+('P018', 'gold', 'CARD-G-018');
+
+-- Add CARD_DETAIL records with enrollment dates within 1 month of employment
+-- P016: Employed 2024-01-15, Enrolled 2024-01-20 (5 days later) ✓
+-- P017: Employed 2024-06-01, Enrolled 2024-06-25 (24 days later) ✓
+-- P018: Employed 2024-09-10, Enrolled 2024-10-01 (21 days later) ✓
+INSERT INTO CARD_DETAIL (Card_ID, Card_Issue_Date) VALUES
+('CARD-G-016', '2024-01-20'),
+('CARD-G-017', '2024-06-25'),
+('CARD-G-018', '2024-10-01');
+
+-- Add EMPLOYEE records linking to the gold members
+INSERT INTO EMPLOYEE (Employee_ID, Person_ID, Member_ID, Start_Date) VALUES
+('EMP006', 'P016', 'P016', '2024-01-15'),  -- Enrolled 5 days after employment
+('EMP007', 'P017', 'P017', '2024-06-01'),  -- Enrolled 24 days after employment
+('EMP008', 'P018', 'P018', '2024-09-10');  -- Enrolled 21 days after employment
+
+-- Add a counter-example: Employee who enrolled MORE than a month after employment
+INSERT INTO PERSON (Person_ID, Fname, MName, LName, Address, Gender, DOB) VALUES
+('P019', 'Thomas', 'Edward', 'Baker', '400 Archive Ave, Portland, OR', 'M', '1985-11-15');
+
+INSERT INTO PERSON_PHONE_NUMBER (Person_ID, Phone_Number) VALUES
+('P019', '503-555-1901');
+
+INSERT INTO MEMBER (Member_ID, Member_type, Card_ID) VALUES
+('P019', 'gold', 'CARD-G-019');
+
+-- P019: Employed 2024-02-01, Enrolled 2024-04-15 (74 days later - more than a month) ✗
+INSERT INTO CARD_DETAIL (Card_ID, Card_Issue_Date) VALUES
+('CARD-G-019', '2024-04-15');
+
+INSERT INTO EMPLOYEE (Employee_ID, Person_ID, Member_ID, Start_Date) VALUES
+('EMP009', 'P019', 'P019', '2024-02-01');  -- Enrolled 74 days after - should NOT appear in query
+
+-- Add another counter-example: Employee with silver membership (not gold)
+INSERT INTO PERSON (Person_ID, Fname, MName, LName, Address, Gender, DOB) VALUES
+('P020', 'Linda', 'Sue', 'Williams', '500 Catalog Court, Bend, OR', 'F', '1993-07-22');
+
+INSERT INTO PERSON_PHONE_NUMBER (Person_ID, Phone_Number) VALUES
+('P020', '541-555-2001');
+
+INSERT INTO MEMBER (Member_ID, Member_type, Card_ID) VALUES
+('P020', 'silver', 'CARD-S-020');
+
+-- P020: Employed 2024-08-01, Enrolled 2024-08-10 (9 days later, but SILVER not gold) ✗
+INSERT INTO CARD_DETAIL (Card_ID, Card_Issue_Date) VALUES
+('CARD-S-020', '2024-08-10');
+
+INSERT INTO EMPLOYEE (Employee_ID, Person_ID, Member_ID, Start_Date) VALUES
+('EMP010', 'P020', 'P020', '2024-08-01');  -- Silver member enrolled within a month - should NOT appear
+
+-- ==============================================
+-- EXPECTED QUERY RESULTS:
+-- The query should return exactly 3 employees:
+-- 1. EMP006 (P016 - Alice Johnson) - Enrolled 5 days after employment
+-- 2. EMP007 (P017 - Robert Chen) - Enrolled 24 days after employment
+-- 3. EMP008 (P018 - Maria Rodriguez) - Enrolled 21 days after employment
+--
+-- Should NOT return:
+-- - EMP009 (P019) - Enrolled 74 days after (more than 1 month)
+-- - EMP010 (P020) - Silver member (not gold)
+-- ==============================================
+
 -- ==============================================
 -- END OF SAMPLE DATA
 -- ==============================================
