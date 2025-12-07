@@ -2,7 +2,6 @@ USE jungle_library_db;
 
 CREATE OR REPLACE VIEW ActiveReceptionist AS
 SELECT 
-    r.Employee_ID,
     p.FName AS First_Name,
     p.LName AS Last_Name,
     COUNT(i.Inquiry_ID) AS resolved_count
