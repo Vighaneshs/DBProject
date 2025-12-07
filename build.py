@@ -27,21 +27,57 @@ DB_CONFIG = {
 }
 
 def run_sql_file(cursor, filepath):
-    """Execute SQL commands from a file"""
+    """
+    Execute SQL commands from a standard file (tables, views, data).
+    Splits by semicolon to avoid using multi=True.
+    """
+    print(f"  Executing {filepath}...")
     with open(filepath, 'r') as f:
         sql = f.read()
-        # Split by semicolon and execute each statement
-        for statement in sql.split(';'):
-            statement = statement.strip()
-            if statement:
-                cursor.execute(statement)
 
+    # Split by semicolon and execute each statement individually
+    commands = sql.split(';')
+    
+    for command in commands:
+        command = command.strip()
+        if command:
+            try:
+                cursor.execute(command)
+            except mysql.connector.Error as err:
+                print(f"Error in {filepath}: {err}")
+                raise err
+            
+def run_trigger_file(cursor, filepath):
+    """
+    Execute a Trigger file.
+    Does NOT split by semicolon (breaks triggers).
+    Removes DELIMITER commands (Python doesn't need them).
+    """
+    print(f"  Executing Trigger {filepath}...")
+    with open(filepath, 'r') as f:
+        lines = f.readlines()
+
+    # Filter out CLI-specific commands that Python doesn't understand
+    clean_lines = []
+    for line in lines:
+        if "DELIMITER" not in line.upper() and "$$" not in line:
+            clean_lines.append(line)
+    
+    sql = "".join(clean_lines).strip()
+
+    if sql:
+        try:
+            cursor.execute(sql)
+        except mysql.connector.Error as err:
+            print(f"Error in Trigger {filepath}: {err}")
+            raise err
+        
 def main():
     """Main build process"""
     try:
         # Connect to MySQL server
         print("Connecting to MySQL server...")
-        conn = mysql.connector.connect(**DB_CONFIG)
+        conn = mysql.connector.connect(**DB_CONFIG, use_pure=True)
         cursor = conn.cursor()
         
         # Drop database if exists
@@ -58,7 +94,7 @@ def main():
         conn.close()
         
         DB_CONFIG['database'] = 'jungle_library_db'
-        conn = mysql.connector.connect(**DB_CONFIG)
+        conn = mysql.connector.connect(**DB_CONFIG, use_pure=True)
         cursor = conn.cursor()
         
         # Create tables
@@ -92,6 +128,10 @@ def main():
         run_sql_file(cursor, 'schema/tables/27_entry.sql')
 
         conn.commit()
+
+        print("Setting Triggers...")
+        run_trigger_file(cursor, 'schema/trigger/trigger_employee_age_check.sql')
+        conn.commit()
         
         # Create views
         print("Creating views...")
@@ -99,6 +139,7 @@ def main():
         run_sql_file(cursor, 'schema/views/active_receptionist.sql')
         run_sql_file(cursor, 'schema/views/best_rating_publisher.sql')
         run_sql_file(cursor, 'schema/views/potential_gold_member.sql')
+        run_sql_file(cursor, 'schema/views/view_popular_books.sql')
         
         conn.commit()
         

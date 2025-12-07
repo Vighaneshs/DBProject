@@ -25,7 +25,8 @@ INSERT INTO PERSON (Person_ID, Fname, MName, LName, Address, Gender, DOB) VALUES
 ('P012', 'Lisa', 'Marie', 'Jackson', '963 Maple Drive, Bend, OR', 'F', '1994-01-20'),
 ('P013', 'Matthew', 'John', 'White', '159 Pine Lane, Salem, OR', 'M', '1984-07-30'),
 ('P014', 'Michelle', 'Anne', 'Harris', '357 Elm Road, Portland, OR', 'F', '1996-11-15'),
-('P015', 'James', 'William', 'Martin', '486 Cedar Court, Seattle, WA', 'M', '1982-03-22');
+('P015', 'James', 'William', 'Martin', '486 Cedar Court, Seattle, WA', 'M', '1982-03-22'),
+('P026', 'Mihelle', 'Annwee', 'Harris', '357 Elm Road, Portland, OR', 'F', '2020-11-15');
 
 -- ---------------------------------------------
 -- 2. PERSON_PHONE_NUMBER (Depends on PERSON)
@@ -338,7 +339,7 @@ INSERT INTO WRITES (Author_ID, Book_ID) VALUES
 INSERT INTO EMPLOYEE (Employee_ID, Person_ID, Member_ID, Start_Date) VALUES
 ('EMP001', 'P011', NULL, '2020-01-15'),
 ('EMP002', 'P012', 'P010', '2020-03-20'),
-('EMP003', 'P013', NULL, '2021-06-10'),
+('EMP003', 'P013', NULL, '2025-11-10'),
 ('EMP004', 'P014', NULL, '2021-09-05'),
 ('EMP005', 'P015', NULL, '2022-01-12');
 
@@ -915,3 +916,171 @@ INSERT INTO EMPLOYEE (Employee_ID, Person_ID, Member_ID, Start_Date) VALUES
 -- ==============================================
 -- END OF SAMPLE DATA
 -- ==============================================
+
+-- ---------------------------------------------
+-- Additional test data to validate TopGoldMember view
+-- Create 6 borrow events for gold member P001 within past month (Nov 6 - Dec 6, 2025)
+-- ---------------------------------------------
+INSERT INTO PAYMENT (Payment_ID, Payment_Method, Payment_Date, Amount_Paid) VALUES
+('PAY200', 'Credit Card', '2025-11-08', 12.00),
+('PAY201', 'Credit Card', '2025-11-09', 12.00),
+('PAY202', 'Credit Card', '2025-11-10', 12.00),
+('PAY203', 'Credit Card', '2025-11-11', 12.00),
+('PAY204', 'Credit Card', '2025-11-12', 12.00),
+('PAY205', 'Credit Card', '2025-11-13', 12.00);
+
+INSERT INTO BORROWING_RECORD (Payment_ID, Issue_Date, Return_Due_Date) VALUES
+('PAY200', '2025-11-08', '2025-11-22'),
+('PAY201', '2025-11-09', '2025-11-23'),
+('PAY202', '2025-11-10', '2025-11-24'),
+('PAY203', '2025-11-11', '2025-11-25'),
+('PAY204', '2025-11-12', '2025-11-26'),
+('PAY205', '2025-11-13', '2025-11-27');
+
+INSERT INTO BORROWS (Payment_ID, Member_ID) VALUES
+('PAY200', 'P001'),
+('PAY201', 'P001'),
+('PAY202', 'P001'),
+('PAY203', 'P001'),
+('PAY204', 'P001'),
+('PAY205', 'P001');
+
+INSERT INTO ENTRY (Payment_ID, Book_ID) VALUES
+('PAY200', 'BK00000001'),
+('PAY201', 'BK00000002'),
+('PAY202', 'BK00000003'),
+('PAY203', 'BK00000004'),
+('PAY204', 'BK00000005'),
+('PAY205', 'BK00000006');
+
+-- ---------------------------------------------
+-- Additional data for the new set of queries
+-- 1) Supervisors hired within past 2 months
+-- 2) Employees who are members and their borrows in past month
+-- 3) Extra borrows for gold members to compute top-5 average
+-- 4) Additional entries to ensure publisher/book popularity clarity
+-- ---------------------------------------------
+
+-- Add PERSONs for new recent supervisors
+INSERT INTO PERSON (Person_ID, Fname, MName, LName, Address, Gender, DOB) VALUES
+('P021', 'Olivia', 'May', 'Brown', '21 Elm St, Portland, OR', 'F', '1991-04-02'),
+('P022', 'Liam', 'Alexander', 'Carter', '34 Pine St, Eugene, OR', 'M', '1987-09-11');
+
+-- Add EMPLOYEE records for the new supervisors with recent start dates (within past 2 months)
+INSERT INTO EMPLOYEE (Employee_ID, Person_ID, Member_ID, Start_Date) VALUES
+('EMP011', 'P021', NULL, '2025-11-10'),
+('EMP012', 'P022', NULL, '2025-11-20');
+
+-- Mark them as library supervisors (use existing trainer IDs)
+INSERT INTO LIBRARY_SUPERVISOR (Employee_ID, Trainer_ID) VALUES
+('EMP011', 1),
+('EMP012', 2);
+
+-- ------------------------------------------------------------------
+-- 2) Employees who are members and borrowed books in the past month
+-- Use existing gold members P016, P017, P018 (EMP006/7/8 correspond to these)
+-- Add payments and borrowing records dated within last month (Nov 6 - Dec 6, 2025)
+-- ------------------------------------------------------------------
+INSERT INTO PAYMENT (Payment_ID, Payment_Method, Payment_Date, Amount_Paid) VALUES
+('PAY300', 'Cash', '2025-11-10', 8.00),
+('PAY301', 'Cash', '2025-11-11', 7.50),
+('PAY302', 'Debit Card', '2025-11-12', 9.00),
+('PAY303', 'Credit Card', '2025-11-13', 11.00),
+('PAY304', 'Credit Card', '2025-11-14', 10.00),
+('PAY305', 'Cash', '2025-11-15', 6.50);
+
+INSERT INTO BORROWING_RECORD (Payment_ID, Issue_Date, Return_Due_Date) VALUES
+('PAY300', '2025-11-10', '2025-11-24'),
+('PAY301', '2025-11-11', '2025-11-25'),
+('PAY302', '2025-11-12', '2025-11-26'),
+('PAY303', '2025-11-13', '2025-11-27'),
+('PAY304', '2025-11-14', '2025-11-28'),
+('PAY305', '2025-11-15', '2025-11-29');
+
+-- Link borrows to member-employees: P016 (EMP006), P017 (EMP007), P018 (EMP008)
+INSERT INTO BORROWS (Payment_ID, Member_ID) VALUES
+('PAY300', 'P016'),
+('PAY301', 'P016'),
+('PAY302', 'P017'),
+('PAY303', 'P017'),
+('PAY304', 'P018'),
+('PAY305', 'P018');
+
+-- Each payment maps to one or two books (ENTRY)
+INSERT INTO ENTRY (Payment_ID, Book_ID) VALUES
+('PAY300', 'BK00000021'), ('PAY300', 'BK00000022'),
+('PAY301', 'BK00000023'),
+('PAY302', 'BK00000024'), ('PAY302', 'BK00000025'),
+('PAY303', 'BK00000026'),
+('PAY304', 'BK00000027'), ('PAY304', 'BK00000028'),
+('PAY305', 'BK00000029');
+
+-- ------------------------------------------------------------------
+-- 3) Extra borrows for gold members to ensure top-5 calculation is meaningful
+-- Create a set of payments (PAY400...) for several gold members and multiple ENTRY rows
+-- ------------------------------------------------------------------
+INSERT INTO PAYMENT (Payment_ID, Payment_Method, Payment_Date, Amount_Paid) VALUES
+('PAY400', 'Credit Card', '2025-10-20', 12.00),
+('PAY401', 'Credit Card', '2025-10-21', 12.00),
+('PAY402', 'Cash', '2025-10-22', 12.00),
+('PAY403', 'Debit Card', '2025-10-23', 12.00),
+('PAY404', 'Cash', '2025-10-24', 12.00),
+('PAY405', 'Credit Card', '2025-10-25', 12.00),
+('PAY406', 'Credit Card', '2025-10-26', 12.00),
+('PAY407', 'Credit Card', '2025-10-27', 12.00),
+('PAY408', 'Cash', '2025-10-28', 12.00),
+('PAY409', 'Debit Card', '2025-10-29', 12.00),
+('PAY410', 'Cash', '2025-10-30', 12.00);
+
+INSERT INTO BORROWING_RECORD (Payment_ID, Issue_Date, Return_Due_Date) VALUES
+('PAY400', '2025-10-20', '2025-11-03'),
+('PAY401', '2025-10-21', '2025-11-04'),
+('PAY402', '2025-10-22', '2025-11-05'),
+('PAY403', '2025-10-23', '2025-11-06'),
+('PAY404', '2025-10-24', '2025-11-07'),
+('PAY405', '2025-10-25', '2025-11-08'),
+('PAY406', '2025-10-26', '2025-11-09'),
+('PAY407', '2025-10-27', '2025-11-10'),
+('PAY408', '2025-10-28', '2025-11-11'),
+('PAY409', '2025-10-29', '2025-11-12'),
+('PAY410', '2025-10-30', '2025-11-13');
+
+-- Assign these payments to gold members: P003, P005, P007, P009, P016
+INSERT INTO BORROWS (Payment_ID, Member_ID) VALUES
+('PAY400', 'P003'),
+('PAY401', 'P003'),
+('PAY402', 'P005'),
+('PAY403', 'P005'),
+('PAY404', 'P007'),
+('PAY405', 'P007'),
+('PAY406', 'P009'),
+('PAY407', 'P009'),
+('PAY408', 'P016'),
+('PAY409', 'P016'),
+('PAY410', 'P016');
+
+-- Multiple ENTRY rows per payment to increase book counts
+INSERT INTO ENTRY (Payment_ID, Book_ID) VALUES
+('PAY400', 'BK00000002'), ('PAY400', 'BK00000003'), ('PAY400', 'BK00000005'),
+('PAY401', 'BK00000005'), ('PAY401', 'BK00000007'),
+('PAY402', 'BK00000011'), ('PAY402', 'BK00000012'),
+('PAY403', 'BK00000013'),
+('PAY404', 'BK00000014'), ('PAY404', 'BK00000015'), ('PAY404', 'BK00000016'),
+('PAY405', 'BK00000017'),
+('PAY406', 'BK00000018'), ('PAY406', 'BK00000019'),
+('PAY407', 'BK00000020'),
+('PAY408', 'BK00000021'), ('PAY408', 'BK00000022'),
+('PAY409', 'BK00000023'),
+('PAY410', 'BK00000024');
+
+-- ------------------------------------------------------------------
+-- 4) Additional entries to make publisher->most-popular-book clearer
+-- Map some existing payments to books from publishers that might be underrepresented
+-- ------------------------------------------------------------------
+INSERT INTO ENTRY (Payment_ID, Book_ID) VALUES
+('PAY300', 'BK00000002'), -- PUB1
+('PAY301', 'BK00000009'), -- PUB1
+('PAY302', 'BK00000014'), -- PUB1
+('PAY303', 'BK00000004'), -- PUB3
+('PAY304', 'BK00000010'), -- PUB2
+('PAY305', 'BK00000011'); -- PUB2
