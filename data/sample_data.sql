@@ -1084,3 +1084,66 @@ INSERT INTO ENTRY (Payment_ID, Book_ID) VALUES
 ('PAY303', 'BK00000004'), -- PUB3
 ('PAY304', 'BK00000010'), -- PUB2
 ('PAY305', 'BK00000011'); -- PUB2
+
+-- ==============================================
+-- TEST DATA FOR ALL FIVE VIEWS
+-- ==============================================
+
+-- ============================================================
+-- 1. TopGoldMember: Gold members with >5 books in past month
+-- ============================================================
+INSERT INTO PAYMENT (Payment_ID, Payment_Method, Payment_Date, Amount_Paid) VALUES
+('PAY500', 'Credit Card', '2025-12-01', 15.00),
+('PAY501', 'Credit Card', '2025-12-02', 15.00);
+
+INSERT INTO BORROWING_RECORD (Payment_ID, Issue_Date, Return_Due_Date) VALUES
+('PAY500', '2025-12-01', '2025-12-15'),
+('PAY501', '2025-12-02', '2025-12-16');
+
+INSERT INTO BORROWS (Payment_ID, Member_ID) VALUES
+('PAY500', 'P001'),
+('PAY501', 'P001');
+
+INSERT INTO ENTRY (Payment_ID, Book_ID) VALUES
+('PAY500', 'BK00000008'),
+('PAY501', 'BK00000010');
+
+-- ============================================================
+-- 2. PopularBooks: Most borrowed in past year
+-- ============================================================
+INSERT INTO PAYMENT (Payment_ID, Payment_Method, Payment_Date, Amount_Paid) VALUES
+('PAY502', 'Cash', '2025-10-01', 12.00),
+('PAY503', 'Cash', '2025-09-15', 12.00);
+
+INSERT INTO BORROWING_RECORD (Payment_ID, Issue_Date, Return_Due_Date) VALUES
+('PAY502', '2025-10-01', '2025-10-15'),
+('PAY503', '2025-09-15', '2025-09-29');
+
+INSERT INTO BORROWS (Payment_ID, Member_ID) VALUES
+('PAY502', 'P003'),
+('PAY503', 'P005');
+
+INSERT INTO ENTRY (Payment_ID, Book_ID) VALUES
+('PAY502', 'BK00000005'),
+('PAY503', 'BK00000005');
+
+-- ============================================================
+-- 3. BestRatingPublisher: All books avg >= 4.0
+-- ============================================================
+INSERT INTO COMMENTS (Person_ID, Book_ID, Comment_Time, Rating, Content) VALUES
+('P001', 'BK00000026', '2025-11-15 10:00:00', 5, 'Excellent guide to software.'),
+('P002', 'BK00000033', '2025-11-16 11:00:00', 4, 'Patterns are well explained.'),
+('P003', 'BK00000040', '2025-11-17 12:00:00', 5, 'Pragmatic advice for developers.'),
+('P004', 'BK00000026', '2025-11-18 13:00:00', 4, 'Good principles for clean code.'),
+('P005', 'BK00000033', '2025-11-19 14:00:00', 5, 'Must-read for OOP design.');
+
+-- ============================================================
+-- 4. PotentialGoldMember: Silver members with monthly borrows all 12 months
+-- P002 and P004 already present with full monthly coverage
+
+-- ============================================================
+-- 5. ActiveReceptionist: Receptionists with >5 inquiries resolved in past month
+-- ============================================================
+INSERT INTO INQUIRY (Inquiry_ID, Inquiry_Time, Resolution_Status, Member_ID, Rating, Receptionist_ID) VALUES
+('INQ013', '2025-12-01 10:00:00', 'Resolved', 'P001', 5, 'EMP005'),
+('INQ014', '2025-12-02 11:00:00', 'Resolved', 'P002', 4, 'EMP005');
